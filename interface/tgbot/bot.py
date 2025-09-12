@@ -2,6 +2,11 @@ from aiogram import Bot, Dispatcher
 from aiogram.filters import Command
 from aiogram.types import Message
 from app_logic import dictionary, user
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+BOT_TOKEN = os.getenv("BOT_TOKEN")
 
 # перенести в мейн
 bot = Bot(token=BOT_TOKEN)
