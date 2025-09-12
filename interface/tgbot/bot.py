@@ -50,5 +50,3 @@ async def process_add_command(message: Message):
 @dp.message(Command(commands='getall'))
 async def process_add_command(message: Message):
     pass
-
-dp.run_polling(bot)
