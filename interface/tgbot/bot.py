@@ -20,23 +20,34 @@ async def process_start_command(message: Message):
 async def process_help_command(message: Message):
     pass # Make cool help output
 
-@dp.message(Command(comannds='add'))
+@dp.message(Command(commands='add'))
 async def process_add_command(message: Message):
-    pass # через try except и split message
+    try:
+        args = message.text.split(maxsplit=4)
+        if len(args) < 5:
+            await message.answer(f'Incorrect format!')
+            return
+        user_id = user.User.get_user_id_by_tg_id(message.from_user.id)
+        item = dictionary.Item(item_type=args[1], spelling=args[2], transcription=args[3], meaning=args[4], user_id=user_id)
+        item.add()
+        await message.answer('grats!')
+    except Exception as e:
+        await message.answer(f'Error: {e}')
 
-@dp.message(Command(comannds='remove'))
+
+@dp.message(Command(commands='remove'))
 async def process_add_command(message: Message):
     pass
 
-@dp.message(Command(comannds='update'))
+@dp.message(Command(commands='update'))
 async def process_add_command(message: Message):
     pass
 
-@dp.message(Command(comannds='get'))
+@dp.message(Command(commands='get'))
 async def process_add_command(message: Message):
     pass
 
-@dp.message(Command(comannds='getall'))
+@dp.message(Command(commands='getall'))
 async def process_add_command(message: Message):
     pass
 

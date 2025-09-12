@@ -75,7 +75,7 @@ def get_item(param, user_id):
             SELECT id, type, spelling, transcription, meaning, added_at
             FROM Items
             WHERE (spelling = ? OR meaning = ?) AND user_id = ?;
-        ''', (param, param))
+        ''', (param, param, user_id))
     else:
         cursor.execute('''
             SELECT *
@@ -98,3 +98,15 @@ def add_user(user):
     ''', (user.tg_id, user.registred))
     connection.commit()
     connection.close()
+
+def get_user_by_tg_id(tg_id):
+    connection = get_connection()
+    cursor = connection.cursor()
+    cursor.execute('''
+        SELECT id
+        FROM Users
+        WHERE tg_id = ?;
+    ''', (tg_id))
+    rows = cursor.fetchall()
+    connection.close()
+    return rows

@@ -1,8 +1,8 @@
 from app_logic import dictionary, database
-from interface import CLI
+from interface.tgbot import bot
 
 database.create_tables
+dp = bot.dp
 
 if __name__ == '__main__':
-    cli = CLI.Cli()
-    cli.cmdloop()
+    dp.run_polling(bot)
