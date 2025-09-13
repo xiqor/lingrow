@@ -19,7 +19,6 @@ async def process_start_command(message: Message):
         new_user = user.User(tg_id=tg_id)
         new_user.add_user()
     await message.answer(f'Привет, {user.User.get_user_id_by_tg_id(tg_id)}, {tg_id}!')
-    # add registation
 
 @dp.message(Command(commands='help'))
 async def process_help_command(message: Message):
@@ -30,12 +29,12 @@ async def process_add_command(message: Message):
     try:
         args = message.text.split(maxsplit=4)
         if len(args) < 5:
-            await message.answer(f'Incorrect format!')
+            await message.answer(f'Incorrect format! Try using "/add <type> <spelling> <transcription> <meaning>"')
             return
         user_id = user.User.get_user_id_by_tg_id(message.from_user.id)
         item = dictionary.Item(item_type=args[1], spelling=args[2], transcription=args[3], meaning=args[4], user_id=user_id)
         item.add()
-        await message.answer('grats!')
+        await message.answer('Congrats! New word added to your dictionary')
     except Exception as e:
         await message.answer(f'Error: {e}')
 
