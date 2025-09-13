@@ -14,7 +14,11 @@ dp = Dispatcher()
 
 @dp.message(Command(commands='start'))
 async def process_start_command(message: Message):
-    await message.answer('Привет!')
+    tg_id = message.from_user.id
+    if not user.User.get_user_id_by_tg_id(tg_id):
+        new_user = user.User(tg_id=tg_id)
+        new_user.add_user()
+    await message.answer(f'Привет, {user.User.get_user_id_by_tg_id(tg_id)}, {tg_id}!')
     # add registation
 
 @dp.message(Command(commands='help'))

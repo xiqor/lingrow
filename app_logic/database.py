@@ -10,7 +10,7 @@ def create_tables():
     # Users table
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS Users (
-            id INTEGER PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             tg_id INTEGER UNIQUE NOT NULL,
             registred TEXT DEFAULT CURRENT_TIMESTAMP
         );
@@ -20,7 +20,7 @@ def create_tables():
     cursor.execute('''
         CREATE TABLE IF NOT EXISTS Items (
             user_id INTEGER,
-            id INTEGER PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             type TEXT NOT NULL,
             spelling TEXT,
             transcription TEXT,
@@ -106,7 +106,7 @@ def get_user_by_tg_id(tg_id):
         SELECT id
         FROM Users
         WHERE tg_id = ?;
-    ''', (tg_id))
-    rows = cursor.fetchall()
+    ''', (tg_id,))
+    row = cursor.fetchall()
     connection.close()
-    return rows
+    return row[0] if row else None
