@@ -23,8 +23,9 @@ class Item:
         database.update_item(item_id, self)
 
     @classmethod
-    def get(cls, param):
-        return database.get_item(param)
+    def get(cls, param, user_id):
+        # make it pretty
+        return str(database.get_item(param, user_id))
 
     # pretty print of item
     def pprint(self):

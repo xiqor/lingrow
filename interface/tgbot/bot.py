@@ -8,7 +8,6 @@ from dotenv import load_dotenv
 load_dotenv()
 BOT_TOKEN = os.getenv("BOT_TOKEN")
 
-# перенести в мейн
 bot = Bot(token=BOT_TOKEN)
 dp = Dispatcher()
 
@@ -44,7 +43,7 @@ async def process_remove_command(message: Message):
     try:
         args = message.text.split(maxsplit=1)
         if len(args) != 2:
-            await message.answer(f'Incorrect format! Try using "/remove <id>"')
+            await message.answer(f'Incorrect format! Try using "/remove <id>" to get id use "/get" or "/getall"')
             return
         item_id = args[1]
         user_id = user.User.get_user_id_by_tg_id(message.from_user.id)
@@ -55,13 +54,22 @@ async def process_remove_command(message: Message):
 
 
 @dp.message(Command(commands='update'))
-async def process_add_command(message: Message):
+async def process_update_command(message: Message):
     pass
 
 @dp.message(Command(commands='get'))
-async def process_add_command(message: Message):
-    pass
+async def process_get_command(message: Message):
+    try:
+        args = message.text.split(maxsplit=1)
+        if len(args) != 2:
+            await message.answer(f'Incorrect format! Try using "/get <spelling OR meaning>"')
+            return
+        param = args[1]
+        user_id = user.User.get_user_id_by_tg_id(message.from_user.id)
+        await message.answer(dictionary.Item.get(param, user_id))
+    except Exception as e:
+        await message.answer(f'Error: {e}')
 
 @dp.message(Command(commands='getall'))
-async def process_add_command(message: Message):
+async def process_getall_command(message: Message):
     pass
