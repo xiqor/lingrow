@@ -16,8 +16,8 @@ class Item:
 
     # remove item from db WORKS
     @classmethod
-    def remove(self, item_id):
-        database.remove_item(item_id)
+    def remove(self, item_id, user_id):
+        database.remove_item(item_id,user_id)
 
     def update(self, item_id):
         database.update_item(item_id, self)

@@ -40,8 +40,19 @@ async def process_add_command(message: Message):
 
 
 @dp.message(Command(commands='remove'))
-async def process_add_command(message: Message):
-    pass
+async def process_remove_command(message: Message):
+    try:
+        args = message.text.split(maxsplit=1)
+        if len(args) != 2:
+            await message.answer(f'Incorrect format! Try using "/remove <id>"')
+            return
+        item_id = args[1]
+        user_id = user.User.get_user_id_by_tg_id(message.from_user.id)
+        dictionary.Item.remove(item_id, user_id)
+        await message.answer(f'Success! Word {item_id} removed from your dictionary')
+    except Exception as e:
+        await message.answer(f'Error: {e}')
+
 
 @dp.message(Command(commands='update'))
 async def process_add_command(message: Message):
