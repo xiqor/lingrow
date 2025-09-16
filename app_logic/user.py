@@ -11,4 +11,7 @@ class User:
 
     @classmethod
     def get_user_id_by_tg_id(self, tg_id):
-        return database.get_user_by_tg_id(tg_id)[0]
+        user = database.get_user_by_tg_id(tg_id)
+        if user:
+            return user[0]  # id
+        return None

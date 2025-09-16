@@ -21,14 +21,14 @@ async def process_start_command(message: Message):
 
 @dp.message(Command(commands='help'))
 async def process_help_command(message: Message):
-    await message.answer('''You can use following commands:
-                         IMPORTANT: always use 'word' as type, pls
-                         /add <type> <spelling> <transcription> <meaning> - to add new word to your dictionary
-                         /remove <id> (to get id use /get or /getall) - to remove word from your dictionary
-                         /update <item_to_change> <param_to_change> <new_value> - to update word's info
-                         /get <spelling OR meaning> - to get specific word
-                         /getall - to get your whole dictionary
-                         ''')
+    await message.answer('''
+You can use following commands:
+IMPORTANT: always use 'word' as type, pls
+/add <type> <spelling> <transcription> <meaning> - to add new word to your dictionary
+/remove <id> (to get id use /get or /getall) - to remove word from your dictionary
+/update <item_to_change> <param_to_change> <new_value> - to update word's info
+/get <spelling OR meaning> - to get specific word
+/getall - to get your whole dictionary''')
 
 @dp.message(Command(commands='add'))
 async def process_add_command(message: Message):
