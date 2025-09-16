@@ -22,7 +22,7 @@ def create_tables():
             user_id INTEGER,
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             type TEXT NOT NULL,
-            spelling TEXT,
+            spelling TEXT UNIQUE,
             transcription TEXT,
             meaning TEXT,
             added_at TEXT DEFAULT CURRENT_TIMESTAMP,
@@ -56,14 +56,14 @@ def remove_item(item_id, user_id):
     connection.commit()
     connection.close()
 
-def update_item(item_id, new_item, user_id):
+def update_item(item_spelling, param, new_value, user_id):
     connection = get_connection()
     cursor = connection.cursor()
-    cursor.execute('''
+    cursor.execute(f'''
         UPDATE Items
-        SET type = ?, spelling = ?, transcription = ?, meaning = ?
-        WHERE id = ? AND user_id = ?;
-    ''', (new_item.type, new_item.spelling, new_item.transcription, new_item.meaning, item_id, user_id))
+        SET {param} = ?
+        WHERE spelling = ? AND user_id = ?;
+    ''', (new_value, item_spelling, user_id))
     connection.commit()
     connection.close()
 

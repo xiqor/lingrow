@@ -19,8 +19,9 @@ class Item:
     def remove(self, item_id, user_id):
         database.remove_item(item_id,user_id)
 
-    def update(self, item_id):
-        database.update_item(item_id, self)
+    @classmethod
+    def update(self, item, param, value, user_id):
+        database.update_item(item, param, value, user_id)
 
     @classmethod
     def get(cls, param, user_id):

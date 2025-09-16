@@ -19,7 +19,7 @@ class Cli(cmd.Cmd):
         '''Remove existing word from your dictionary by id (use 'get' to get id):
         remove <id>'''
         dictionary.Item.remove(item_id)
-
+# update update func)
     def do_update(self, arg): # add default from existing item and maybe change logic for more user-friendly use
         '''Update info about any existing word by id
         update <id> <new_type> <new_spelling> <new_transcription> <new_meaning>'''
